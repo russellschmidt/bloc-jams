@@ -66,6 +66,10 @@ body {
   max-width: 64rem;
 }
 
+.container.narrow {
+  max-width: 56rem;
+}
+
 /* Responsive Section */
 /* For medium and small screens (bigger than 640px) */
 @media (min-width: 640px) {
