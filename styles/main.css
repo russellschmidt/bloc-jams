@@ -60,6 +60,11 @@ body {
   color: rgb(233,50,117);
 }
 
+.links-container:active {
+  background-color: rgb(255, 255, 255);
+  color: rgb(233, 50, 117);
+}
+
 /* max-width container */
 .container {
   margin: 0 auto;
