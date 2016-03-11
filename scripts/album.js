@@ -84,4 +84,16 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
+  
+  var albumCounter = 0,
+      albums = [albumPicasso, albumMarconi, albumXmas],
+      albumCover = document.getElementsByClassName('album-cover-art')[0];
+  albumCover.addEventListener('click',function(){
+    albumCounter++;
+    if (albumCounter > albums.length - 1 ) {
+      albumCounter = 0;
+    }
+    setCurrentAlbum(albums[albumCounter]);    
+  });
+
 };
