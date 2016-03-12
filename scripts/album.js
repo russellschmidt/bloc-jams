@@ -54,7 +54,7 @@ var albumXmas = {
 var createSongRow = function(songNumber, songName, songLength) {
   var template = 
       '<tr class="album-view-song-item">'
-    + ' <td class="song-item-number">' + songNumber + '</td>'
+    + ' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
     + ' <td class="song-item-title">' + songName + '</td>'
     + ' <td class="song-item-duration">' + songLength + '</td>'
     + '</tr>'
@@ -82,6 +82,30 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+// Container for table of songs
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+var songRows = document.getElementsByClassName('album-view-song-item');
+
+// Album button templates
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+
+
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
+  
+  songListContainer.addEventListener('mouseover', function(event) {
+    // restrict targeting to a single row and not each element in the row
+    if (event.target.parentElement.className === 'album-view-song-item') {
+      // change the track number into a play button
+      event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+    }
+  });
+  
+  for (var i = 0; i < songRows.length; i++) {
+    songRows[i].addEventListener('mouseleave', function(event){
+      // we are waiting for the mouse to leave that song row and selecting the song number
+      // we then set the song number back to a number from the play button
+      this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+    })
+  }
 };
