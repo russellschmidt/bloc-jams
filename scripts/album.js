@@ -82,13 +82,68 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+// Using Recursion to solve
+var findParentByClassName(currentElement, className){
+  var parentElement = currentElement.parentElement;
+  if (parentElement.getAttribute("class") === className) {
+    return parentElement;
+  } if else (parentElement === null) {
+    alert("no parent found");
+    break;
+  } else {
+    findParentByClassName(parentElement, className);
+  }
+};
+
+/* 
+This function takes an element, and based on class name returns element with .song-item-number class
+*/
+
+var getSongItem(currentElement){
+  switch (currentElement.className) {
+    case "song-item-number":
+      return currentElement;
+    case "song-item-title":
+    case "song-item-duration":
+      return findParentByClassName(currentElement, "album-view-song-item").querySelector('.song-item-number');
+    case "album-view-song-item":
+      return currentElement.querySelector('.song-item-number');
+    case "ion-play":
+    case "ion-pause":
+    case "album-song-button":
+      return findParentByClassName(currentElement, 'song-item-number');
+    default:
+      return;
+  }
+};
+
+var clickHandler = function(targetElement) {
+  var songItem = getSongItem(targetElement);
+  // if no song is playing, make this song play and change play icon to pause icon
+  if (songItem === null) {
+    songItem.innerHTML = pauseButtonTemplate;
+    currentlyPlayingSong = songItem.getAttribute('data-song-number');
+    
+  // if the current song is already playing, pause the song
+  } else if (currentlyPlayingSong === songItem.getAttribute('data-song-number')) {
+    songItem.innerHTML = playButtonTemplate;
+    currentlyPlayingSong = null;
+  // if the current song is not the one being clicked
+  } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) {
+    // 
+  }
+};
+
+
 // Container for table of songs
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
 
 // Album button templates
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 
+var currentlyPlayingSong = null;
 
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
@@ -107,5 +162,9 @@ window.onload = function() {
       // we then set the song number back to a number from the play button
       this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
     })
+    
+    songRows[i].addEventListener('click', function(event) {
+      // event handler for the click that plays or pauses a song
+    });
   }
 };
