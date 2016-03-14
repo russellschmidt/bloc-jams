@@ -83,20 +83,25 @@ var setCurrentAlbum = function(album) {
 };
 
 // Using Recursion to solve
-/*
 var findParentByClassName = function(currentElement, className) {
   var parentElement = currentElement.parentElement;
-  if (parentElement.getAttribute("class") === className) {
-    return parentElement;
-  } else if (parentElement === null) {
-    alert("no parent found");
-    break;
+  if (parentElement === null) {
+    alert("No parent found");
+    return null;
   } else {
-    findParentByClassName(parentElement, className);
+    if (parentElement.getAttribute("class") === className) {
+      return parentElement;
+    } else if (parentElement === null) {
+      alert("No parent found with that class name");
+      return null;
+    } else {
+      return findParentByClassName(parentElement, className);
+    }
   }
 };
-*/
 
+
+/*
 var findParentByClassName = function(element, targetClass) {
   if (element) {
     var currentParent = element.parentElement;
@@ -114,6 +119,7 @@ var findParentByClassName = function(element, targetClass) {
     return currentParent;
   }
 }
+*/
 
 /* 
 This function takes an element, and based on class name returns element with .song-item-number class
