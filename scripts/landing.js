@@ -38,7 +38,7 @@ window.setInterval(function(){
   }
 }, 33);
 
-/* *** Vanilla ***
+/* *** JavaScript ***
 window.onload = function() {
   // start animation if the user has a tall browser window
   if (window.innerHeight > 950) {
@@ -56,7 +56,7 @@ window.onload = function() {
 }
 */
 
-/* jQ */
+/* jQuery */
 $(window).load(function(){
   if ($(window).height() > 950) {
     animatePoints();
