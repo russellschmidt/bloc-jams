@@ -2,6 +2,7 @@ var pointsArray = document.getElementsByClassName('point');
 var logoImage = document.getElementById('logo-image');
 var degree = 0;
 
+/* vanilla 
 var animatePoints = function(points) {
   
   forEach(points, function(point){
@@ -10,6 +11,17 @@ var animatePoints = function(points) {
     point.style.msTransform = "scaleX(1) translateY(0)";
     point.style.WebkitTransform = "scaleX(1) translateY(0)";
   });
+};
+*/
+
+var animatePoints = function() {
+  var revealPoint = function() {
+    $(this).css({
+      opacity: 1,
+      transform: 'ScaleX(1) translateY(0)'
+    });
+  };
+  $.each($('.point'), revealPoint);
 };
 
 function rotateImage(logoImage, deg) {
@@ -26,6 +38,7 @@ window.setInterval(function(){
   }
 }, 33);
 
+/* *** Vanilla ***
 window.onload = function() {
   // start animation if the user has a tall browser window
   if (window.innerHeight > 950) {
@@ -41,3 +54,19 @@ window.onload = function() {
     }
   });
 }
+*/
+
+/* jQ */
+$(window).load(function(){
+  if ($(window).height() > 950) {
+    animatePoints();
+  }
+  
+  var scrollDistance = $('.selling-points').offset().top - $(window).height() + 200;
+  
+  $(window).scroll(function(event) {
+    if ($(window).scrollTop() >= scrollDistance) {
+      animatePoints();
+    }
+  });
+});
