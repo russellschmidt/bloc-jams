@@ -1,4 +1,5 @@
-BLOC-JAMS 
-Bloc's Spotify clone
+#BLOC-JAMS 
+
+##Spotify clone
 
 Made with love 
