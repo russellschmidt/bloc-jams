@@ -21,14 +21,20 @@ var createSongRow = function(songNumber, songName, songLength) {
     }
     if (currentlyPlayingSongNumber !== songNumber) {
       $(this).html(pauseButtonTemplate);
+      setSong(songNumber);
+      /*
       currentlyPlayingSongNumber = songNumber;
       currentSongFromAlbum = parseInt(currentAlbum.songs[songNumber - 1]);
+      */
       updatePlayerBarSong();
     } else if (currentlyPlayingSongNumber === songNumber) {
       $(this).html(playButtonTemplate);
       $('.main-controls .play-pause').html(playerBarPlayButton);
+      setSong(null);
+      /*
       currentlyPlayingSongNumber = null;
       currentSongFromAlbum = null;
+      */
     } 
   };
   
@@ -102,8 +108,11 @@ var nextSong = function() {
   }
   
   // Setting the new current song
+  setSong(currentSongIndex + 1);
+  /*
   currentlyPlayingSongNumber = currentSongIndex + 1;  // bc Song Number starts 1, index starts at 0
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+  */
   
   //Update the player bar
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
@@ -135,8 +144,11 @@ var previousSong = function() {
   }
   
   // Setting the new current song
+  setSong(currentSongIndex + 1);
+  /*
   currentlyPlayingSongNumber = currentSongIndex + 1;  // bc Song Number starts 1, index starts at 0
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+  */
   
   //Update the player bar
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
@@ -159,6 +171,13 @@ var updatePlayerBarSong = function() {
   
   $('.main-controls .play-pause').html(playerBarPauseButton);
 };
+
+
+var setSong = function(songNumber) {
+  currentlyPlayingSongNumber = songNumber;
+  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];  
+};
+
 
 // Album button templates
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
