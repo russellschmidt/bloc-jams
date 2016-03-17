@@ -98,7 +98,7 @@ var trackIndex = function(album, song) {
 var nextSong = function() {
   
   var getLastSongNumber = function(index) {
-    return ( index == 0 ? currentAlbum.songs.length - 1 : index );
+    return index == 0 ? currentAlbum.songs.length : index;
   }
   
   var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
