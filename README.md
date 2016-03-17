@@ -1,1 +1,4 @@
-#BLOC-JAMS /n ###Bloc's spotify clone
+BLOC-JAMS 
+Bloc's Spotify clone
+
+Made with love 
