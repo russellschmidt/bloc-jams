@@ -6,7 +6,7 @@ var createSongRow = function(songNumber, songName, songLength) {
       '<tr class="album-view-song-item">'
     + ' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
     + ' <td class="song-item-title">' + songName + '</td>'
-    + ' <td class="song-item-duration">' + songLength + '</td>'
+    + ' <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
     + '</tr>'
     ;
   
@@ -111,6 +111,8 @@ var updateSeekBarWhileSongPlays = function() {
       var seekBarFillRatio = this.getTime() / this.getDuration();
       var $seekBar = $('.seek-control .seek-bar');
       updateSeekPercentage($seekBar, seekBarFillRatio);
+      setCurrentTimeInPlayerBar(filterTimeCode(this.getTime()));
+      setTotalTimeInPlayerBar(filterTimeCode(this.getDuration()));
     });
   }
 };
@@ -272,6 +274,25 @@ var seek = function(time) {
     currentSoundFile.setTime(time);
   }
 }; 
+
+var setCurrentTimeInPlayerBar = function (currentTime) {
+  $('.current-time').text(currentTime);
+};
+
+var setTotalTimeInPlayerBar = function (totalTime) {
+  $('.total-time').text(totalTime);
+};
+
+var filterTimeCode = function (timeInSeconds) {
+  var totalSeconds = parseFloat(timeInSeconds);
+  var wholeMinutes = Math.floor(totalSeconds / 60);
+  var wholeSeconds = Math.floor(totalSeconds % 60);
+  if (wholeSeconds < 10) {
+    return wholeMinutes + ":0" + wholeSeconds;
+  } else {
+    return wholeMinutes + ":" + wholeSeconds;  
+  }
+}
 
 var setVolume = function(volume) {
   if (currentSoundFile) {
